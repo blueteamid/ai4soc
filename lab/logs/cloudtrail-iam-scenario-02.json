@@ -1,0 +1,161 @@
+{
+  "_comment": "AWS CloudTrail log — PT Nusantara Digital AWS account (simulated). Scenario: IAM privilege escalation attempt. All data synthetic.",
+  "Records": [
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAIOSFODNN7EXAMPLE01",
+        "arn": "arn:aws:iam::123456789012:user/siti.rahayu",
+        "accountId": "123456789012",
+        "userName": "siti.rahayu"
+      },
+      "eventTime": "2025-01-21T04:28:33Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "ListAttachedUserPolicies",
+      "awsRegion": "ap-southeast-1",
+      "sourceIPAddress": "185.220.101.47",
+      "userAgent": "aws-cli/2.13.0 Python/3.11.4 Windows/10 botocore/2.0.0",
+      "requestParameters": {
+        "userName": "siti.rahayu"
+      },
+      "responseElements": null,
+      "requestID": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "eventID": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "readOnly": true,
+      "eventType": "AwsApiCall",
+      "_analyst_note": "IAM enumeration from same Tor exit IP as phishing C2 — 13 minutes after BEC email sent"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAIOSFODNN7EXAMPLE01",
+        "arn": "arn:aws:iam::123456789012:user/siti.rahayu",
+        "accountId": "123456789012",
+        "userName": "siti.rahayu"
+      },
+      "eventTime": "2025-01-21T04:28:47Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "ListGroupsForUser",
+      "awsRegion": "ap-southeast-1",
+      "sourceIPAddress": "185.220.101.47",
+      "userAgent": "aws-cli/2.13.0 Python/3.11.4 Windows/10 botocore/2.0.0",
+      "requestParameters": {
+        "userName": "siti.rahayu"
+      },
+      "responseElements": null,
+      "requestID": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "eventID": "d4e5f6a7-b8c9-0123-defa-234567890123",
+      "readOnly": true,
+      "eventType": "AwsApiCall"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAIOSFODNN7EXAMPLE01",
+        "arn": "arn:aws:iam::123456789012:user/siti.rahayu",
+        "accountId": "123456789012",
+        "userName": "siti.rahayu"
+      },
+      "eventTime": "2025-01-21T04:29:02Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "ListRoles",
+      "awsRegion": "ap-southeast-1",
+      "sourceIPAddress": "185.220.101.47",
+      "userAgent": "aws-cli/2.13.0 Python/3.11.4 Windows/10 botocore/2.0.0",
+      "requestParameters": {},
+      "responseElements": null,
+      "requestID": "e5f6a7b8-c9d0-1234-efab-345678901234",
+      "eventID": "f6a7b8c9-d0e1-2345-fabc-456789012345",
+      "readOnly": true,
+      "eventType": "AwsApiCall",
+      "_analyst_note": "Role enumeration — attacker mapping what privileges siti.rahayu has in AWS"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAIOSFODNN7EXAMPLE01",
+        "arn": "arn:aws:iam::123456789012:user/siti.rahayu",
+        "accountId": "123456789012",
+        "userName": "siti.rahayu"
+      },
+      "eventTime": "2025-01-21T04:31:18Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "AttachUserPolicy",
+      "awsRegion": "ap-southeast-1",
+      "sourceIPAddress": "185.220.101.47",
+      "userAgent": "aws-cli/2.13.0 Python/3.11.4 Windows/10 botocore/2.0.0",
+      "requestParameters": {
+        "userName": "siti.rahayu",
+        "policyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      },
+      "responseElements": null,
+      "errorCode": "AccessDenied",
+      "errorMessage": "User: arn:aws:iam::123456789012:user/siti.rahayu is not authorized to perform: iam:AttachUserPolicy on resource: user siti.rahayu",
+      "requestID": "a7b8c9d0-e1f2-3456-abcd-567890123456",
+      "eventID": "b8c9d0e1-f2a3-4567-bcde-678901234567",
+      "readOnly": false,
+      "eventType": "AwsApiCall",
+      "_analyst_note": "PRIVILEGE ESCALATION ATTEMPT — attacker tried to attach AdministratorAccess policy to siti.rahayu account. Failed due to insufficient permissions. Critical finding."
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAIOSFODNN7EXAMPLE01",
+        "arn": "arn:aws:iam::123456789012:user/siti.rahayu",
+        "accountId": "123456789012",
+        "userName": "siti.rahayu"
+      },
+      "eventTime": "2025-01-21T04:33:55Z",
+      "eventSource": "s3.amazonaws.com",
+      "eventName": "ListBuckets",
+      "awsRegion": "ap-southeast-1",
+      "sourceIPAddress": "185.220.101.47",
+      "userAgent": "aws-cli/2.13.0 Python/3.11.4 Windows/10 botocore/2.0.0",
+      "requestParameters": null,
+      "responseElements": {
+        "buckets": [
+          {"name": "nusantara-payment-logs", "creationDate": "2023-03-15T08:00:00Z"},
+          {"name": "nusantara-customer-data", "creationDate": "2023-03-15T08:00:00Z"},
+          {"name": "nusantara-backups", "creationDate": "2023-04-01T08:00:00Z"}
+        ]
+      },
+      "requestID": "c9d0e1f2-a3b4-5678-cdef-789012345678",
+      "eventID": "d0e1f2a3-b4c5-6789-defa-890123456789",
+      "readOnly": true,
+      "eventType": "AwsApiCall",
+      "_analyst_note": "S3 bucket enumeration — attacker can see bucket names including customer-data and payment-logs"
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAIOSFODNN7EXAMPLE01",
+        "arn": "arn:aws:iam::123456789012:user/siti.rahayu",
+        "accountId": "123456789012",
+        "userName": "siti.rahayu"
+      },
+      "eventTime": "2025-01-21T04:34:21Z",
+      "eventSource": "s3.amazonaws.com",
+      "eventName": "GetBucketAcl",
+      "awsRegion": "ap-southeast-1",
+      "sourceIPAddress": "185.220.101.47",
+      "userAgent": "aws-cli/2.13.0 Python/3.11.4 Windows/10 botocore/2.0.0",
+      "requestParameters": {
+        "bucketName": "nusantara-customer-data",
+        "acl": ""
+      },
+      "errorCode": "AccessDenied",
+      "errorMessage": "Access Denied",
+      "requestID": "e1f2a3b4-c5d6-7890-efab-901234567890",
+      "eventID": "f2a3b4c5-d6e7-8901-fabc-012345678901",
+      "readOnly": true,
+      "eventType": "AwsApiCall",
+      "_analyst_note": "Attempted to read customer-data bucket ACL — blocked. Attack session appears to be ending."
+    }
+  ]
+}

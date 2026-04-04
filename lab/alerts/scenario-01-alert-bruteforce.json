@@ -1,0 +1,189 @@
+{
+  "scenario": "scenario-01-brute-force",
+  "description": "Simulated Wazuh alert export — credential brute force followed by successful login from anomalous IP. PT Nusantara Digital lab environment. All data is synthetic.",
+  "alerts": [
+    {
+      "id": "wz-alert-20250114-001",
+      "timestamp": "2025-01-14T02:03:11.442Z",
+      "rule": {
+        "id": "5710",
+        "level": 6,
+        "description": "Multiple Windows authentication failures",
+        "mitre": {
+          "tactic": "Credential Access",
+          "technique": "Brute Force",
+          "technique_id": "T1110"
+        }
+      },
+      "agent": {
+        "id": "ag-042",
+        "name": "WKSTN-FIN-042",
+        "ip": "10.10.5.42",
+        "department": "Finance",
+        "os": "Windows 10 Pro 22H2"
+      },
+      "user": {
+        "name": "budi.santoso",
+        "domain": "NUSANTARA",
+        "email": "budi.santoso@nusantaradigital.co.id",
+        "department": "Finance",
+        "privilege_level": "standard"
+      },
+      "source": {
+        "ip": "185.220.101.47",
+        "port": 3389,
+        "geolocation": {
+          "country": "Netherlands",
+          "city": "Amsterdam",
+          "asn": "AS208323",
+          "org": "Tor Exit Node"
+        },
+        "reputation": {
+          "abuseipdb_score": 97,
+          "virustotal_detections": 12,
+          "listed_in": ["AbuseIPDB", "Blocklist.de", "Emerging Threats"]
+        }
+      },
+      "destination": {
+        "ip": "10.10.5.42",
+        "port": 3389,
+        "service": "RDP"
+      },
+      "event": {
+        "count": 47,
+        "duration_seconds": 312,
+        "first_seen": "2025-01-14T01:57:59.000Z",
+        "last_seen": "2025-01-14T02:03:11.000Z",
+        "windows_event_id": 4625,
+        "logon_type": 10,
+        "failure_reason": "Unknown user name or bad password"
+      },
+      "severity": "medium",
+      "status": "open"
+    },
+    {
+      "id": "wz-alert-20250114-002",
+      "timestamp": "2025-01-14T02:11:38.917Z",
+      "rule": {
+        "id": "5715",
+        "level": 10,
+        "description": "Successful Windows login after multiple failures — possible brute force success",
+        "mitre": {
+          "tactic": "Initial Access",
+          "technique": "Valid Accounts",
+          "technique_id": "T1078"
+        }
+      },
+      "agent": {
+        "id": "ag-042",
+        "name": "WKSTN-FIN-042",
+        "ip": "10.10.5.42",
+        "department": "Finance",
+        "os": "Windows 10 Pro 22H2"
+      },
+      "user": {
+        "name": "budi.santoso",
+        "domain": "NUSANTARA",
+        "email": "budi.santoso@nusantaradigital.co.id",
+        "department": "Finance",
+        "privilege_level": "standard"
+      },
+      "source": {
+        "ip": "185.220.101.47",
+        "port": 3389,
+        "geolocation": {
+          "country": "Netherlands",
+          "city": "Amsterdam",
+          "asn": "AS208323",
+          "org": "Tor Exit Node"
+        },
+        "reputation": {
+          "abuseipdb_score": 97,
+          "virustotal_detections": 12,
+          "listed_in": ["AbuseIPDB", "Blocklist.de", "Emerging Threats"]
+        }
+      },
+      "destination": {
+        "ip": "10.10.5.42",
+        "port": 3389,
+        "service": "RDP"
+      },
+      "event": {
+        "windows_event_id": 4624,
+        "logon_type": 10,
+        "logon_process": "User32",
+        "authentication_package": "Negotiate",
+        "session_id": "0x3e7f2a",
+        "gap_from_last_failure_seconds": 507
+      },
+      "context": {
+        "previous_successful_login": {
+          "timestamp": "2025-01-13T08:22:05.000Z",
+          "source_ip": "118.99.81.204",
+          "geolocation": "Jakarta, Indonesia",
+          "note": "Consistent with user's normal login pattern"
+        },
+        "user_working_hours": "Mon-Fri 08:00-17:00 WIB",
+        "login_time_local": "2025-01-14T09:11:38 WIB",
+        "login_time_anomaly": false,
+        "source_ip_anomaly": true,
+        "travel_flag": false
+      },
+      "severity": "high",
+      "status": "open"
+    },
+    {
+      "id": "wz-alert-20250114-003",
+      "timestamp": "2025-01-14T02:14:55.203Z",
+      "rule": {
+        "id": "92201",
+        "level": 12,
+        "description": "Sensitive directory enumeration detected post-login",
+        "mitre": {
+          "tactic": "Discovery",
+          "technique": "File and Directory Discovery",
+          "technique_id": "T1083"
+        }
+      },
+      "agent": {
+        "id": "ag-042",
+        "name": "WKSTN-FIN-042",
+        "ip": "10.10.5.42",
+        "department": "Finance",
+        "os": "Windows 10 Pro 22H2"
+      },
+      "user": {
+        "name": "budi.santoso",
+        "domain": "NUSANTARA",
+        "effective_session": "remote-rdp-185.220.101.47"
+      },
+      "event": {
+        "process": "cmd.exe",
+        "parent_process": "explorer.exe",
+        "command_line": "dir C:\\Users /s /b && dir C:\\Finance_Reports\\2024 /s",
+        "directories_accessed": [
+          "C:\\Users\\budi.santoso\\Documents",
+          "C:\\Users\\budi.santoso\\Downloads",
+          "C:\\Finance_Reports\\2024\\Q4",
+          "C:\\Finance_Reports\\2024\\Audit"
+        ],
+        "file_count_accessed": 312,
+        "duration_seconds": 43
+      },
+      "severity": "critical",
+      "status": "open"
+    }
+  ],
+  "analyst_notes": {
+    "scenario_summary": "Three-alert chain: brute force (47 attempts over 5 min) → successful RDP login from Tor exit node → immediate post-login directory enumeration. Classic credential access pattern. User's normal login IP is Indonesian space; this session originates from a known Tor exit node with AbuseIPDB score of 97/100.",
+    "suggested_pivot_points": [
+      "Check for lateral movement from WKSTN-FIN-042 to other internal hosts",
+      "Review file access logs for C:\\Finance_Reports\\2024\\Q4 and Audit folders",
+      "Check if budi.santoso session is still active",
+      "Review other accounts targeted from same source IP",
+      "Check DNS logs for any C2 beacon activity from this workstation"
+    ],
+    "mitre_chain": ["T1110", "T1078", "T1083"],
+    "kill_chain_phase": "Exploitation → Post-Exploitation"
+  }
+}

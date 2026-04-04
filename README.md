@@ -5,7 +5,7 @@
 
 <div align="center">
 
-![ai4soc banner](docs/assets/banner.svg)
+![ai4soc banner](docs/assets/banner-new.jpeg)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Status: Early Access](https://img.shields.io/badge/Status-Early%20Access-orange.svg)]()

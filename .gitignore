@@ -1,0 +1,50 @@
+# ai4soc .gitignore
+# Keep outputs and any real data out of version control
+
+# Analyst outputs — these are personal, not shared
+outputs/
+
+# Environment and secrets
+.env
+.env.local
+*.key
+*.pem
+*.p12
+
+# Real data — if you add real logs, make sure they never get committed
+lab/real/
+lab/custom/
+*.evtx
+*.pcap
+*.pcapng
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Temp files
+*.tmp
+*.temp
+*.bak

