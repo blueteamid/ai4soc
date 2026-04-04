@@ -201,7 +201,7 @@ based on what the investigation demands.
 **Focus:** Alert triage, log investigation, IOC enrichment, initial scoping.
 **Ask:** "Is this real? What happened? What does the evidence say?"
 **Output:** Triage summary, enriched IOC list, investigation notes.
-**Command:** `/triage` or just describe what you're investigating.
+**Command:** `/triage [file or description]` or just describe what you're investigating.
 
 ### 🔴 Incident Responder
 **When:** A True Positive is confirmed and action is needed NOW.
@@ -245,7 +245,9 @@ based on what the investigation demands.
 
 | Command | Description |
 |---------|-------------|
-| `/start` | Begin the course from Module 0 |
+| `/course-start` | Begin the course from Module 0 |
+| `/course-check` | Show your current course progress |
+| `/course-restart` | Reset course progress and start from the beginning |
 | `/triage [file or description]` | Start SOC Analyst triage workflow |
 | `/ir [incident description]` | Shift into Incident Responder mode |
 | `/cti [report, IOC, or actor name]` | Shift into CTI Analyst mode |
@@ -254,8 +256,11 @@ based on what the investigation demands.
 | `/enrich [IP, domain, hash, or URL]` | Enrich a single IOC |
 | `/sigma [behavior]` | Generate a Sigma rule |
 | `/attack [technique ID or name]` | Look up MITRE ATT&CK details |
-| `/check` | Show your current course progress |
-| `/restart` | Reset course progress and start from the beginning |
+
+> **Note:** Commands prefixed with `/course-` are ai4soc-specific. `/triage`, `/ir`,
+> `/cti`, `/detect`, `/report`, `/enrich`, `/sigma`, and `/attack` are natural language
+> triggers — type them and describe what you need. Claude Code built-in commands
+> (`/status`, `/help`, `/clear`, `/exit`) are reserved and cannot be overridden.
 
 ---
 
@@ -508,11 +513,11 @@ ai4soc Repo     → https://github.com/blueteamid/ai4soc
 
 | Situation | Command |
 |-----------|---------|
-| First time here | `/start` |
-| Resuming the course | `/check` |
-| Live alert to triage | `/triage` |
-| Active incident | `/ir` |
-| Want to start over | `/restart` |
+| First time here | `/course-start` |
+| Resuming the course | `/course-check` |
+| Live alert to triage | `/triage [file or description]` |
+| Active incident | `/ir [incident description]` |
+| Want to start over | `/course-restart` |
 
 ---
 

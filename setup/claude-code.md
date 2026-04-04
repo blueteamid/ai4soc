@@ -130,10 +130,10 @@ instead, see the troubleshooting section below.
 
 ---
 
-## Step 5 — Run Your First Slash Command
+## Step 5 — Run Your First Course Command
 
 ```
-/start
+/course-start
 ```
 
 This begins the course from Module 0. The agent will guide you through the
@@ -141,10 +141,16 @@ introduction and first exercises interactively.
 
 If you have already completed Module 0 and are returning:
 ```
-/check
+/course-check
 ```
 
 This shows your current progress and where to pick up.
+
+> **Note on commands:** Claude Code has built-in reserved commands (`/status`,
+> `/help`, `/clear`, `/exit`) that cannot be overridden. ai4soc course navigation
+> commands are prefixed with `/course-` to avoid conflicts. SOC workflow commands
+> (`/triage`, `/ir`, `/cti`, `/detect`, `/report`) work as natural language
+> triggers — type them followed by what you need.
 
 ---
 
@@ -314,7 +320,7 @@ Or if you have already cloned the repo, start directly:
 ```bash
 cd ai4soc
 claude
-/start
+/course-start
 ```
 
 ---
